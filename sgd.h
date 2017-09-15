@@ -26,9 +26,8 @@ namespace ML {
         MlVec<T> w(DIM);
         for(int e = 0; e < epochs; e++) {
             random_shuffle(examples.begin(), examples.end());
-            for(auto ex : examples) {
+            for(auto ex : examples)
                 w = fn(w,ex);
-            }
         }
         return w;
     }

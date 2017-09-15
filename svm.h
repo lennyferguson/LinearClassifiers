@@ -24,9 +24,7 @@ namespace ML {
                 auto xi = ex.data;
                 auto dy = w.dot(xi);
                 auto wt = w * (1.0 - gamma_t);
-                if (yi * dy <= 1.0)
-                    wt = wt + gamma_t * C * yi * xi;
-                return wt;
+                return (yi * dy <= 1.0) ? wt + gamma_t * C * yi * xi : wt;
             };
             // Calculate the Weight vector using Stochastic Gradient Descent
             this->weight = ML::SGD<T>(examples,update,epochs);

@@ -20,9 +20,16 @@ constexpr size_t get_dim(const unsigned int d) {
 
 using namespace ML;
 /* Testing Functions */
-int main() {
+int main(int argc, char** argv) {
+  string train_file = "_datasets/746Data.txt";
+  string test_file = "_datasets/1625Data.txt";
+  if(argc == 3) {
+    train_file = argv[1];
+    test_file  = argv[2];
+  }
+
   /* */
-  constexpr size_t DIM = get_dim(8);
+  const size_t DIM = get_dim(8);
 
   /* Character map for Data that maps an 'Amino Acid' to a particular binary label.
      For use with HIV1_PR datasets. */
@@ -48,8 +55,8 @@ int main() {
   };
 
   /* Load the Testing and Training data. */
-  auto training_data = load_data<double>("../_datasets/746Data.txt", parse_line);
-  auto test_data = load_data<double>("../_datasets/1625Data.txt", parse_line);
+  auto training_data = load_data<double>(train_file, parse_line);
+  auto test_data = load_data<double>(test_file, parse_line);
 
   /* Measure the performance of the Classifier */
   double per_correct = 0.0;

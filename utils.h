@@ -52,14 +52,11 @@ namespace ML {
         Examples<T> examples;
         string line;
         ifstream read(filename);
-        if(read.is_open()) {
-            while(getline(read,line)) {
+        if(read.is_open()) 
+            while(getline(read,line)) 
                 examples.push_back(rf(line));
-            }
-        } 
-        else {
+        else 
             printf("Unable to read file\n");
-        }
         return examples;
     }
 }
