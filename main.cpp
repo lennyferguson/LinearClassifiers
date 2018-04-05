@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
     test_file  = argv[2];
   }
 
-  /* */
+  /* Calculate dimension of vectors at compile time usig constexpr */
   const size_t DIM = get_dim(8);
 
   /* Character map for Data that maps an 'Amino Acid' to a particular binary label.
@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
 
   /* Load the Testing and Training data. */
   auto training_data = load_data<double>(train_file, parse_line);
-  auto test_data = load_data<double>(test_file, parse_line);
+  auto test_data     = load_data<double>(test_file, parse_line);
 
   /* Measure the performance of the Classifier */
   double per_correct = 0.0;
@@ -68,11 +68,11 @@ int main(int argc, char** argv) {
   ML::LogReg<double>     l(training_data,50,0.01,50);
 
   for(auto &ex : test_data) {
-    if(ex.label * s.classify(ex.data) > 0)
+    if((ex.label * s.classify(ex.data)) > 0)
       svm_correct += 1.0;
-    if(ex.label * p.classify(ex.data) > 0)
+    if((ex.label * p.classify(ex.data)) > 0)
       per_correct += 1.0;
-    if(ex.label * l.classify(ex.data) > 0)
+    if((ex.label * l.classify(ex.data)) > 0)
       log_correct += 1.0;
   }
   printf("Perceptron Percent Correct: %f\n", per_correct / test_data.size());
@@ -85,7 +85,7 @@ void test() {
   // Use Variadic Constructor!
   MlVecD a(1.0,1.0,1.0,1.0);
 
-  // Or use Initialize List!
+  // Or use Initializer List!
   MlVecD b = { 2.0, 3.0, 4.0, 5.0 };
 
   assert(a == a && b == b);

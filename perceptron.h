@@ -2,7 +2,6 @@
 
 #include <vector>
 #include "nvec.h"
-#include "sgd.h"
 #include "utils.h"
 #include "classifier.h"
 
@@ -25,7 +24,7 @@ namespace ML {
                 return (yi * dy <= 0) ? w + yi * gamma * xi : w;
             };
             // Calculate the Weight vector using Stochastic Gradient Descent
-            this->weight = ML::SGD<T>(examples,update,epochs);
+            this->weight = LinearClassifier<T>::SGD(examples,update,epochs);
         }
     };
 }

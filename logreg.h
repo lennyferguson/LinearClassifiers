@@ -2,7 +2,6 @@
 
 #include <vector>
 #include "nvec.h"
-#include "sgd.h"
 #include "utils.h"
 #include "classifier.h"
 
@@ -27,11 +26,11 @@ namespace ML {
                 return w - ((ex.label < 0 ? 0 : 1) - s) * ex.data;
             };
             // Calculate the Weight vector using Stochastic Gradient Descent
-            this->weight = ML::SGD<T>(examples,update,epochs);
+            this->weight = LinearClassifier<T>::SGD(examples,update,epochs);
         }
 
         T classify(const MlVec<T> &ex) {
-        return log(1.0 + exp(-this->weight.dot(ex))) > 0.5 ? 1.0 : -1.0;
-    }
+            return log(1.0 + exp(-this->weight.dot(ex))) > 0.5 ? 1.0 : -1.0;
+        }
     };
 }
